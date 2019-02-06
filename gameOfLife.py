@@ -7,9 +7,8 @@ iterations = 1
 empty_grid = [[0 for i in range(width)] for j in range(height)]
 
 
-def print_grid(current_grid):
-    title = "Output of iteration..." + str(iterations)
-    print(title)
+def print_grid(current_grid, item):
+    print("Output of iteration...{0}".format(item))
     output = ""
     for row in current_grid:
         for cell in row:
@@ -50,11 +49,12 @@ def next_generation(current_grid, width, height):
 
 
 def run_iterations(current_grid, iterations):
-    print_grid(current_grid)
-    for i in range(0, iterations):
+    item = 0
+    print_grid(current_grid, item)
+    for item in range(1, iterations + 1):
         new_grid = next_generation(current_grid, width, height)
         current_grid = new_grid
-        print_grid(current_grid)
+        print_grid(current_grid, item)
 
 
 # Test case 1 - Grid with no live cells
@@ -73,4 +73,4 @@ scenario2 = [[0, 0, 0, 0, 0],
 
 # print_grid(next_gen, 1)
 # next_generation(scenario2, 5, 5)
-run_iterations(scenario2, 5)
+run_iterations(scenario2, 3)
