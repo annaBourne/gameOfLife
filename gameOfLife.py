@@ -1,15 +1,17 @@
-# Create grid size and initialise iteration to 1st
+import copy
+
+# Create grid size, initialise iteration to 1st and create empty grid
 width = 5
 height = 5
 iterations = 1
 empty_grid = [[0 for i in range(width)] for j in range(height)]
 
 
-def print_grid(grid):
+def print_grid(current_grid):
     title = "Output of iteration..." + str(iterations)
     print(title)
     output = ""
-    for row in grid:
+    for row in current_grid:
         for cell in row:
             if cell == 0:
                 output += "- "
@@ -19,8 +21,8 @@ def print_grid(grid):
     print(output)
 
 
-def next_generation(grid, width, height):
-    next_gen = empty_grid
+def next_generation(current_grid, width, height):
+    next_gen = copy.deepcopy(empty_grid)
 
     # Visit each interior cell
     for x in range(1, width - 1):
@@ -29,31 +31,30 @@ def next_generation(grid, width, height):
             live_cells = 0
             for i in range(-1, 2):
                 for j in range(-1, 2):
-                    live_cells += grid[x + i][y + j]
-            live_cells -= grid[x][y]
+                    live_cells += current_grid[x + i][y + j]
+            live_cells -= current_grid[x][y]
 
             # Apply rules of the game
-            if grid[x][y] == 0 and live_cells == 0:
+            if current_grid[x][y] == 0 and live_cells == 0:
                 next_gen[x][y] = 0
 
-            elif grid[x][y] == 1 and live_cells < 2:
+            elif current_grid[x][y] == 1 and live_cells < 2:
                 next_gen[x][y] = 0
 
-            elif grid[x][y] == 1 and (live_cells == 2 or live_cells == 3):
+            elif current_grid[x][y] == 1 and (live_cells == 2 or live_cells == 3):
                 next_gen[x][y] = 1
 
-            elif grid[x][y] == 0 and live_cells == 3:
+            elif current_grid[x][y] == 0 and live_cells == 3:
                 next_gen[x][y] = 1
     return next_gen
 
 
-def run_iterations(grid, iterations):
-    print_grid(grid)
-    new_grid = empty_grid
+def run_iterations(current_grid, iterations):
+    print_grid(current_grid)
     for i in range(0, iterations):
-        new_grid = next_generation(grid, width, height)
-    print_grid(new_grid)
-
+        new_grid = next_generation(current_grid, width, height)
+        current_grid = new_grid
+        print_grid(current_grid)
 
 
 # Test case 1 - Grid with no live cells
@@ -71,5 +72,5 @@ scenario2 = [[0, 0, 0, 0, 0],
              [0, 0, 0, 0, 0]]
 
 # print_grid(next_gen, 1)
-#next_generation(scenario2, 5, 5)
-run_iterations(scenario2, 2)
+# next_generation(scenario2, 5, 5)
+run_iterations(scenario2, 5)
