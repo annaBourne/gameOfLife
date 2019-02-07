@@ -34,7 +34,12 @@ Therefore to find the width and height without hard-coding, I would use somethin
 width = len(grid)
 height = len(input[0])
 
+How to run the game
+--------------------
 
+To run this version of the game of life, you need to open a terminal or command line interface. You will need
+Python 3 to be installed on your machine in order to run the program. Once you have navigated to the directory in which
+gameOfLife.py resides, type python3 gameOfLife.py and the program will run.
 
 References:
 
