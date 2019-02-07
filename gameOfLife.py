@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import copy
 
 # Create grid size, initialise iteration to 1st and create empty grid
